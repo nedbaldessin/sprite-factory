@@ -6,8 +6,9 @@ module SpriteFactory
 
       def self.layout(images, options = {})
 
-        raise NotImplementedError, ":packed layout does not support the :padding option" if (options[:padding].to_i > 0) || (options[:hpadding].to_i > 0) || (options[:vpadding].to_i > 0)
         raise NotImplementedError, ":packed layout does not support fixed :width/:height option" if options[:width] || options[:height]
+
+        options[:padding] ||= options[:hpadding]
 
         return { :width => 0, :height => 0 } if images.empty?
 
@@ -19,14 +20,14 @@ module SpriteFactory
           diff
         end
 
-        root = { :x => 0, :y => 0, :w => images[0][:width], :h => images[0][:height] }
+        root = { :x => 0, :y => 0, :w => images[0][:width] + options[:padding], :h => images[0][:height] + options[:padding] }
 
         images.each do |i|
-          if (node = findNode(root, i[:width], i[:height]))
+          if (node = findNode(root, i[:width] + options[:padding], i[:height] + options[:padding]))
             placeImage(i, node)
-            splitNode(node, i[:width], i[:height])
+            splitNode(node, i[:width] + options[:padding], i[:height] + options[:padding])
           else
-            root = grow(root, i[:width], i[:height])
+            root = grow(root, i[:width] + options[:padding], i[:height] + options[:padding])
             redo
           end
         end

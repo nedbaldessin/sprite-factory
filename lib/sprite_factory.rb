@@ -27,6 +27,7 @@ module SpriteFactory
     attr_accessor :csspath
     attr_accessor :pngcrush
     attr_accessor :nocomments
+    attr_accessor :padding
   end
 
   #----------------------------------------------------------------------------

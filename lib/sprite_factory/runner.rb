@@ -16,6 +16,7 @@ module SpriteFactory
       @config[:layout]     ||= SpriteFactory.layout   || :horizontal
       @config[:library]    ||= SpriteFactory.library  || :rmagick
       @config[:selector]   ||= SpriteFactory.selector || 'img.'
+      @config[:padding]    ||= SpriteFactory.padding  || 0
       @config[:csspath]    ||= SpriteFactory.csspath
       @config[:report]     ||= SpriteFactory.report
       @config[:pngcrush]   ||= SpriteFactory.pngcrush
